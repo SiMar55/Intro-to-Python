@@ -1,0 +1,181 @@
+def get_input():
+    n = int(input())
+
+    matrix = {}
+    for each in range(n):
+        row = input()
+        row_input = []
+        for i in row.split(' '):
+            row_input.append(int(i))
+        matrix[each] = row_input
+    return matrix, n
+
+
+def diagonal(matrix, n):
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                if matrix[i][j] != 0:
+                    return 0
+    return 1
+
+
+def scalar(matrix, n):
+    if diagonal(matrix, n) == 0:
+        return 0
+    for i in range(n):
+        if matrix[i][i] != matrix[0][0]:
+            return 0
+    return 1
+
+
+def symmetric(matrix, n):
+    for i in range(n):
+        for j in range(n):
+            if matrix[i][j] != matrix[j][i]:
+                return 0
+    return 1
+
+
+def anti_symmetric(matrix, n):
+    for i in range(n):
+        for j in range(n):
+            if matrix[i][j] != - matrix[j][i]:
+                return 0
+    return 1
+
+
+def lower_triangle(matrix, n):
+    for i in range(n):
+        for j in range(i + 1, n):
+            if matrix[i][j] != 0:
+                return 0
+    return 1
+
+
+def upper_triangle(matrix, n):
+    for i in range(n):
+        for j in range(i):
+            if matrix[i][j] != 0:
+                return 0
+    return 1
+
+
+def ninety_degree(matrix, n):
+    rotate_90 = {}
+    for j in range(n):
+        row = []
+        for i in range(n - 1, -1, -1):
+            row.append(matrix[i][j])
+        rotate_90[j] = row
+    for new_col, new_row in rotate_90.items():
+        for value in new_row:
+            print(value, end=' ')
+        print()
+    return rotate_90
+
+
+def one_eighty_degree(matrix, n):
+    rotate_180 = {}
+    for j in range(n):
+        row = []
+        for i in range(n - 1, -1, -1):
+            row.append(matrix[i][j])
+        rotate_180[j] = row
+    for new_col, new_row in rotate_180.items():
+        for value in new_row:
+            print(value, end=' ')
+        print()
+    return rotate_180
+
+
+def two_seventy_degree(matrix, n):
+    rotate_270 = {}
+    for j in range(n):
+        row = []
+        for i in range(n - 1, -1, -1):
+            row.append(matrix[i][j])
+        rotate_270[j] = row
+    for new_col, new_row in rotate_270.items():
+        for value in new_row:
+            print(value, end=' ')
+        print()
+    return rotate_270
+
+
+def horizontal_flip(matrix, n):
+    flipped = {}
+    for i in range(n):
+        flipped[i] = matrix[n - 1 - i]
+    for new_col, new_row in flipped.items():
+        for value in new_row:
+            print(value, end=' ')
+        print()
+    return flipped
+
+
+def vertical_flip(matrix, n):
+    flipped = {}
+    for i in range(n):
+        flipped_row = []
+        for j in range(n):
+            flipped_row.append(matrix[i][n - 1 - j])
+        flipped[i] = flipped_row
+    for new_col, new_row in flipped.items():
+        for value in new_row:
+            print(value, end=' ')
+        print()
+    return flipped
+
+
+def transpose(matrix, n):
+    new = {}
+    for j in range(n):
+        row = []
+        for i in range(n):
+            row.append(matrix[i][j])
+        new[j] = row
+    for new_col, new_row in new.items():
+        for value in new_row:
+            print(value, end=' ')
+        print()
+    return new
+
+
+def transpose_other(matrix, n):
+    new = {}
+    for j in reversed(range(n)):
+        row = []
+        for i in reversed(range(n)):
+            row.append(matrix[i][j])
+        new[j] = row
+    for new_col, new_row in new.items():
+        for value in new_row:
+            print(value, end=' ')
+        print()
+    return new
+
+
+matrix, n = get_input()
+# matrix = {0: [1, 2, 3], 1: [0, 5, 4], 2: [0, 0, 8]}
+# n = 3
+print('is_diagonal', diagonal(matrix, n))
+print('is_scalar', scalar(matrix, n))
+print('is_symmetric', symmetric(matrix, n))
+print('is_anti_symmetric', anti_symmetric(matrix, n))
+print('is_lower_triangle', lower_triangle(matrix, n))
+print('is_upper_triangle', upper_triangle(matrix, n), '\n')
+
+rotate_90 = ninety_degree(matrix, n)
+print('')
+rotate_180 = one_eighty_degree(rotate_90, n)
+print('')
+two_seventy_degree(rotate_180, n)
+print('')
+horizontal_flip(matrix, n)
+print('')
+vertical_flip(matrix, n)
+print('')
+transpose(matrix, n)
+print('')
+transpose_other(matrix, n)
